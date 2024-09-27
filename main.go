@@ -11,7 +11,7 @@ type Node struct {
 	Next  *Node
 }
 
-func CreatePoliList(n int) *Node {
+func CreatePoliList(n int, seterr bool) *Node {
 	var (
 		pprev *Node = nil
 		p     *Node = nil
@@ -26,8 +26,10 @@ func CreatePoliList(n int) *Node {
 		s[len(s)-1-i] = s[i]
 	}
 	// вносим ошибку
-	//	i := r.Intn(len(s))
-	//	s[i] = 10 - s[i]
+	if seterr {
+		i := r.Intn(len(s))
+		s[i] = 10 - s[i]
+	}
 	fmt.Println(s)
 	for _, v := range s {
 		p = new(Node)
@@ -76,8 +78,8 @@ func IsPolindrom(h *Node) bool {
 			if count%2 == 0 {
 				// count четный. сдвигаем hl и hr на один элемент вправо
 				// и разворачиваем ссылку между стратовыми hl  hr
-				s_hr := hr
-				s_hl := hl
+				s_hr = hr
+				s_hl = hl
 				hr = hr.Next
 				hl = s_hr
 				hl.Next = s_hl
@@ -120,7 +122,10 @@ func IsPolindrom(h *Node) bool {
 func main() {
 	var Head *Node
 	fmt.Println("PolindromListGo...")
-	Head = CreatePoliList(7)
+	Head = CreatePoliList(7, false)
+	PrintList(Head)
+	fmt.Println("Список полиндром: ", IsPolindrom(Head))
+	Head = CreatePoliList(7, true)
 	PrintList(Head)
 	fmt.Println("Список полиндром: ", IsPolindrom(Head))
 }
