@@ -53,7 +53,8 @@ func IsPolindrom(h *Node) bool {
 		pend  *Node = nil // указательна конец списка
 		hr    *Node = nil
 		hl    *Node = nil
-		sref  *Node = nil
+		s_hl  *Node = nil
+		s_hr  *Node = nil
 	)
 	if h == nil {
 		// список пуст. ничего не делаем и сразу выходим
@@ -75,12 +76,12 @@ func IsPolindrom(h *Node) bool {
 			if count%2 == 0 {
 				// count четный. сдвигаем hl и hr на один элемент вправо
 				// и разворачиваем ссылку между стратовыми hl  hr
-				sref = hl
-				hl = hl.Next
+				s_hr := hr
+				s_hl := hl
 				hr = hr.Next
-				hl.Next = sref // разворот
+				hl = s_hr
+				hl.Next = s_hl
 			}
-
 		}
 	}
 	if count == 1 {
@@ -88,16 +89,30 @@ func IsPolindrom(h *Node) bool {
 		return true
 	}
 	// тут начало сравнения hr и hl
+	// ссылки на головы списков для возврата в правый список
+	s_hr = hr
+	s_hl = hl
+	// сдвиг hr на один элемент если count нечетный
+	if count%2 == 1 {
+		hr = hr.Next
+	}
 	for {
 		if hr.Value == hl.Value {
-			// следующий шаг
+			if hl == h { // или hr == pe
+				// условие окончания
+				// *** возврат списка в исходное положение
+				return true
+			}
+			// следующий шаг hl(hr) = hl(hr).Next
+			// движение по левому и правому списку
+			hl = hl.Next
+			hr = hr.Next
+			// возврат элемента левого списка в правый список (???)
+
 		} else {
 			// не полиндром
-			// доперевернуть левую половину и выйти с false
+			// *** возврат списка в исходное положение
 			return false
-		}
-		if hl == h {
-			// условие окончания
 		}
 	}
 	return false
