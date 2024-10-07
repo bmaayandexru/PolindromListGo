@@ -148,4 +148,8 @@ func main() {
 	Head = CreatePoliList(8, true)
 	fmt.Println("Список полиндром: ", IsPolindrom(Head))
 	PrintList(Head)
+	fmt.Println("Список полиндром: ", IsPolindrom(Head))
+	Head = CreatePoliList(7, true)
+	PrintList(Head)
+	fmt.Println("Список полиндром: ", IsPolindrom(Head))
 }
