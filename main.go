@@ -53,17 +53,17 @@ func IsPolindrom(h *Node) bool {
 	var (
 		count int   = 0
 		pend  *Node = nil // указательна конец списка
-		hr    *Node = nil
-		hl    *Node = nil
-		s_hl  *Node = nil
-		s_hr  *Node = nil
+		hr    *Node = nil // указатель на голову правого списка
+		hl    *Node = nil // указатель на голову левого списка
+		s_hl  *Node = nil // переменная для сохранения головы левого списка
+		s_hr  *Node = nil // переменная для сохранения головы правого списка
 	)
 	if h == nil {
 		// список пуст. ничего не делаем и сразу выходим
 		return false
 	}
 	pend = h   // сделали шаг
-	count += 1 // инкркмент счетчика
+	count += 1 // инкремент счетчика
 	fmt.Println(pend, count)
 	for pend.Next != nil {
 		pend = pend.Next // делаем шаг
